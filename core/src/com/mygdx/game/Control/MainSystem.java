@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Interface.Interface;
 import com.mygdx.game.Model.Passage;
 import com.mygdx.game.Model.Thing;
+import com.mygdx.game.Player.Player;
 import com.mygdx.game.SearchPath.Node;
 import com.mygdx.game.View.World;
 
@@ -23,7 +24,7 @@ public class MainSystem
 
     public void update()
     {
-        if (Gdx.input.isTouched())
+        if (Gdx.input.justTouched())
         {
             controller.render(Gdx.input.getX(), world.camera.cameraHeight - Gdx.input.getY());
         }
@@ -37,8 +38,10 @@ public class MainSystem
             //Gdx.app.error("LogicRender" , " " + (world.chosenObject && world.player.body.overlaps(world.door.body)));
             //Gdx.app.error("id", "" + idInterface);
             //Gdx.app.error("size: ", "" + Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
+            world.player.state = Player.State.STAND;
             if (world.player.path.size() > 0 && world.player.countArr != world.player.path.size())
             {
+                world.player.state = Player.State.WALK;
                 world.player.move();
             }
             Gdx.app.error("Logic", "" + idObject);
@@ -96,6 +99,7 @@ public class MainSystem
                 {
                     if (World.cloak.addThing(thing))
                     {
+                        idObject = -1;
                         world.things.remove(thing);
                     }
                 }
@@ -119,6 +123,7 @@ public class MainSystem
         {
             if (justInterface != null)
             {
+                idInterface = "null";
                 justInterface.use(world);
             }
         }

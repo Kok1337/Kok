@@ -1,0 +1,1 @@
+first 1000 1000 20 400 100 door.png second end 10 10 obj.png 700 400 obj.png end second 1000 1000 20 700 100 door.png first end end

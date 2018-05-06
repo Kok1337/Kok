@@ -14,7 +14,7 @@ public class Second extends World
         super(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 20);
     }
 
-    @Override
+   // @Override
     public void getSettings()
     {
         passages.add(new Passage(700, 100, new Texture("door.png"), "first"));

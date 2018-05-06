@@ -16,7 +16,7 @@ public class First extends World
         super(1000, 1000, 20);
     }
 
-    @Override
+   // @Override
     public void getSettings()
     {
         for (int i = 5; i < 10; i++)

@@ -202,11 +202,11 @@ public class AStar
         {
             batch.draw(closeNode, node.position.x * nodeSize, node.position.y * nodeSize);
         }
-/*
+
         for (Node node : path)
         {
             batch.draw(box, node.position.x * nodeSize, node.position.y * nodeSize);
-        }*/
+        }
     }
 
     public void arrayFlip(ArrayList<Node> nodes)

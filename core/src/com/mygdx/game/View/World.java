@@ -110,7 +110,7 @@ public abstract class World implements Screen
             case INVENTORY:
                 IR.render(batch);
                 cloak.render(batch);
-                if (Gdx.input.isTouched())
+                if (Gdx.input.justTouched())
                 {
                     cloak.selectPanel(Gdx.input.getX(),  Gdx.graphics.getHeight() - Gdx.input.getY());
                     this.state = State.RUN;
@@ -119,7 +119,7 @@ public abstract class World implements Screen
             case PAUSE:
                 IR.render(batch);
                 batch.draw(pause.pause, IR.cameraWidth / 2 - pause.pause.getWidth() / 2, IR.cameraHeight / 2 - pause.pause.getHeight() / 2);
-                if (Gdx.input.isTouched())
+                if (Gdx.input.justTouched())
                     this.state = State.RUN;
                 break;
         }
