@@ -11,7 +11,7 @@ public class Second extends World
 {
     public Second()
     {
-        super(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 20);
+        super(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
    // @Override

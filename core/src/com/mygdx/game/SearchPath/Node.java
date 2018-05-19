@@ -4,6 +4,7 @@ import com.mygdx.game.Position;
 
 public class Node
 {
+    public static final int nodeSize = 20;
     public int gCost;
     public int fCost;
     public Node parent;

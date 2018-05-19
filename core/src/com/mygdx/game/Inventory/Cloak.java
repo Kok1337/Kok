@@ -12,7 +12,7 @@ import com.mygdx.game.View.World;
 public class Cloak
 {
     Sprite backgroung;
-    Panel [] panels;
+    public Panel [] panels;
     public int selectPanel;
     public Cloak()
     {
@@ -61,6 +61,7 @@ public class Cloak
     public void deleteThing()
     {
         panels[selectPanel].deleteThing();
+        Bag.setThing(null);
     }
 
     public void selectPanel(int x, int y)

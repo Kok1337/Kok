@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Interface.Pause;
+import com.mygdx.game.Model.Interaction;
 import com.mygdx.game.Model.Passage;
 import com.mygdx.game.Model.Thing;
 import com.mygdx.game.Position;
@@ -13,7 +14,7 @@ public class First extends World
 
     public First()
     {
-        super(1000, 1000, 20);
+        super(1000, 1000);
     }
 
    // @Override
@@ -31,5 +32,14 @@ public class First extends World
         things.add(new Thing(500, 500, new Texture("obj.png")));
 
         passages.add(new Passage(400, 100, new Texture("door.png"), "second"));
+        used.add(new Interaction(40, 400, new Texture("candelfalse.png"), things.get(0)) {
+            @Override
+            public void doIt()
+            {
+                this.texture = new Texture("candel.png");
+                this.used = true;
+                World.cloak.deleteThing();
+            }
+        });
     }
 }

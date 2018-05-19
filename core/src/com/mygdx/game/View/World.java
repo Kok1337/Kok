@@ -13,6 +13,7 @@ import com.mygdx.game.Interface.Bag;
 import com.mygdx.game.Interface.Interface;
 import com.mygdx.game.Interface.Pause;
 import com.mygdx.game.Inventory.Cloak;
+import com.mygdx.game.Model.Interaction;
 import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.Model.Passage;
 import com.mygdx.game.Model.Thing;
@@ -23,6 +24,8 @@ import com.mygdx.game.SearchPath.Node;
 import com.mygdx.game.Start;
 
 import java.util.ArrayList;
+
+import javax.jws.soap.SOAPBinding;
 
 public abstract class World implements Screen
 {
@@ -48,30 +51,30 @@ public abstract class World implements Screen
     public MainSystem system;
     public Camera IR;
 
-    public int nodeSize;
     public int worldWidth;
     public int worldHeight;
 
     public ArrayList<Thing> things;
     public ArrayList<Passage> passages;
     public ArrayList<Node> closeAllTime;
+    public ArrayList<Interaction> used;
     public ArrayList<Interface> interfaces;
 
 
 
-    public World(int worldWidth, int worldHeight, int nodeSize)
+    public World(int worldWidth, int worldHeight)
     {
         //потом вместо размера мира надо будет кидать текстуру и вычислять через нее размеры
         this.worldWidth = worldWidth;
         this.worldHeight =worldHeight;
-        this.nodeSize = nodeSize;
-        player = new Player(0, 0, nodeSize);
-        aStar = new AStar(worldWidth, worldHeight, nodeSize);
+        player = new Player(0, 0);
+        aStar = new AStar(worldWidth, worldHeight);
         camera = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldWidth, worldHeight);
         interfaces = new ArrayList<Interface>();
         closeAllTime = new ArrayList<Node>();
         passages = new ArrayList<Passage>();
         things = new ArrayList<Thing>();
+        used = new ArrayList<Interaction>();
         getSettings();
         aStar.setCloseAllTime(closeAllTime);
         system = new MainSystem(this);
@@ -167,6 +170,10 @@ public abstract class World implements Screen
     {
         system.update();
         aStar.render(batch);
+        for (Interaction obg : used)
+        {
+            obg.render(batch);
+        }
         for (Passage passage : passages)
         {
             passage.render(batch);

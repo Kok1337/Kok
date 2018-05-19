@@ -2,6 +2,7 @@ package com.mygdx.game.Control;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Interface.Interface;
+import com.mygdx.game.Model.Interaction;
 import com.mygdx.game.Model.Passage;
 import com.mygdx.game.Model.Thing;
 import com.mygdx.game.Player.Player;
@@ -53,6 +54,7 @@ public class MainSystem
             {
                 passageProcess(getPassageByID());
                 thingProcess(getThingByID());
+                interactionProcess(getInteractionByID());
             }
             world.camera.positionUpdate(world.player);
         }
@@ -128,6 +130,30 @@ public class MainSystem
             }
         }
 
+        public Interaction getInteractionByID()
+        {
+            for (Interaction obg : world.used)
+            {
+                if (obg.id == idObject)
+                {
+                    return obg;
+                }
+            }
+
+            return null;
+        }
+
+        public void interactionProcess(Interaction obg)
+        {
+            if (obg != null)
+            {
+                if (obg.isCollision(world.player))
+                {
+                    idObject = -1;
+                    obg.check(world.player);
+                }
+            }
+        }
     }
 
     public class InputController
@@ -145,7 +171,7 @@ public class MainSystem
                 //Gdx.app.error("корды", "" + targetX +" "+ targetY);
                 //для А*
                 {
-                    Node st = world.aStar.getNodeFromMap(world.player.position.x / world.aStar.nodeSize, world.player.position.y / world.aStar.nodeSize);
+                    Node st = world.aStar.getNodeFromMap(world.player.position.x / Node.nodeSize, world.player.position.y / Node.nodeSize);
                     if (!world.aStar.closeAllTime.contains(st))
                     {
                         world.player.setPath(world.aStar.getPath(world.player.position.x, world.player.position.y, targetX, targetY));
@@ -157,8 +183,8 @@ public class MainSystem
                         world.player.countArr = 0;
                     if (world.player.path.size() > 0 && world.player.countArr != 0)
                     {
-                        if (world.player.position.x / world.aStar.nodeSize != world.player.path.get(world.player.countArr - 1).position.x &&
-                                world.player.position.y / world.aStar.nodeSize != world.player.path.get(world.player.countArr - 1).position.y)
+                        if (world.player.position.x / Node.nodeSize != world.player.path.get(world.player.countArr - 1).position.x &&
+                                world.player.position.y / Node.nodeSize != world.player.path.get(world.player.countArr - 1).position.y)
                         {
                             world.player.countArr = 0;
                         }
@@ -186,6 +212,14 @@ public class MainSystem
                         break;
                 }
             }
+
+            if (idObject == -1)
+                for (Interaction obg : world.used)
+                {
+                    idObject = obg.getIDByClick(x, y);
+                    if (idObject != -1)
+                        break;
+                }
         }
 
         public void getIDInterface(int x, int y)

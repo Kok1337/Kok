@@ -11,7 +11,6 @@ public class AStar
     public int tempG;
     public int width;
     public int height;
-    public int nodeSize;
     public boolean isClose;
     public Node curr;
     public Node start;
@@ -26,18 +25,17 @@ public class AStar
     public Texture closeNode;
 
     //принимает размеры в пикселях и самостоятельно вычисляет все как надо
-    public AStar(int width, int height, int nodeSize)
+    public AStar(int width, int height)
     {
         this.width = width;
         this.height = height;
-        this.nodeSize = nodeSize;
         path = new ArrayList<Node>();
         open = new ArrayList<Node>();
         close = new ArrayList<Node>();
-        map = new Node[1 + width / nodeSize][1 + height / nodeSize];
-        for (int i = 0; i < 1 + width / nodeSize; i++)
+        map = new Node[1 + width / Node.nodeSize][1 + height / Node.nodeSize];
+        for (int i = 0; i < 1 + width / Node.nodeSize; i++)
         {
-            for (int j = 0; j < 1 + height / nodeSize; j++)
+            for (int j = 0; j < 1 + height / Node.nodeSize; j++)
             {
                 map[i][j] = new Node(i, j);
             }
@@ -64,8 +62,8 @@ public class AStar
         {
             return path;
         }*/
-        start = map[playerX / nodeSize][playerY / nodeSize];
-        target = map[targetX / nodeSize][targetY / nodeSize];
+        start = map[playerX / Node.nodeSize][playerY / Node.nodeSize];
+        target = map[targetX / Node.nodeSize][targetY / Node.nodeSize];
 
         if (closeAllTime.contains(target))
         {
@@ -115,7 +113,7 @@ public class AStar
             {
                 if (closeAllTime.contains(node))
                 {
-                    path = getPath(start.position.x * nodeSize,start.position.y * nodeSize,node.position.x * nodeSize,node.position.y * nodeSize);
+                    path = getPath(start.position.x * Node.nodeSize,start.position.y * Node.nodeSize,node.position.x * Node.nodeSize,node.position.y * Node.nodeSize);
                     //arrayFlip(path);
                     break;
                 }
@@ -200,12 +198,12 @@ public class AStar
     {
         for (Node node : closeAllTime)
         {
-            batch.draw(closeNode, node.position.x * nodeSize, node.position.y * nodeSize);
+            batch.draw(closeNode, node.position.x * Node.nodeSize, node.position.y * Node.nodeSize);
         }
 
         for (Node node : path)
         {
-            batch.draw(box, node.position.x * nodeSize, node.position.y * nodeSize);
+            batch.draw(box, node.position.x * Node.nodeSize, node.position.y * Node.nodeSize);
         }
     }
 

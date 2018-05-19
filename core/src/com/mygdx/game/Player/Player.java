@@ -39,16 +39,13 @@ public class Player
 
     public int speed;
     public int countArr;
-    public int nodeSize;
     public Texture player;
     public Position position;
     public Rectangle body;
     public ArrayList<Node> path;
     public boolean isFlip;
-    boolean left = true;
 
-    public Player(int x, int y, int nodeSize) {
-        this.nodeSize = nodeSize;
+    public Player(int x, int y) {
         position = new Position(x, y);
         player = new Texture("player.png");
         body = new Rectangle(x - 20, y, player.getWidth(), 30);
@@ -110,25 +107,25 @@ public class Player
     }
 
     public void move() {
-        if (position.x == path.get(countArr).position.x * nodeSize && position.y == path.get(countArr).position.y * nodeSize)
+        if (position.x == path.get(countArr).position.x * Node.nodeSize && position.y == path.get(countArr).position.y * Node.nodeSize)
         {
             countArr++;
         }
         //Gdx.app.error("move" , countArr +" "+path.get(path.size() - 1).position.x +" "+path.get(path.size() - 1).position.y);
         if (path.size() > countArr) {
-            if ((position.x - path.get(countArr).position.x * nodeSize) < 0)
+            if ((position.x - path.get(countArr).position.x * Node.nodeSize) < 0)
             {
                 isFlip = false;
                 position.x += speed;
             }
-            else if ((position.x - path.get(countArr).position.x * nodeSize) > 0)
+            else if ((position.x - path.get(countArr).position.x * Node.nodeSize) > 0)
             {
                 isFlip = true;
                 position.x -= speed;
             }
-            if ((position.y - path.get(countArr).position.y * nodeSize) < 0)
+            if ((position.y - path.get(countArr).position.y * Node.nodeSize) < 0)
                 position.y += speed;
-            else if ((position.y - path.get(countArr).position.y * nodeSize) > 0)
+            else if ((position.y - path.get(countArr).position.y * Node.nodeSize) > 0)
                 position.y -= speed;
         }
     }
