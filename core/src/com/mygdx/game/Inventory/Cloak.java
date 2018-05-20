@@ -1,12 +1,10 @@
 package com.mygdx.game.Inventory;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Camera.Camera;
 import com.mygdx.game.Interface.Bag;
-import com.mygdx.game.Model.Thing;
+import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.View.World;
 
 public class Cloak
@@ -45,7 +43,7 @@ public class Cloak
         }
     }
 
-    public boolean addThing(Thing thing)
+    public boolean addThing(JustObject thing)
     {
         for (Panel panel : panels)
         {

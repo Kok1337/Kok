@@ -2,9 +2,7 @@ package com.mygdx.game.Control;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Interface.Interface;
-import com.mygdx.game.Model.Interaction;
-import com.mygdx.game.Model.Passage;
-import com.mygdx.game.Model.Thing;
+import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.SearchPath.Node;
 import com.mygdx.game.View.World;
@@ -14,7 +12,7 @@ public class MainSystem
     public World world;
     public Logic logic;
     public InputController controller;
-    public int idObject = -1;
+    public String idObject = "null";
     public String idInterface = "null";
     public MainSystem(World world)
     {
@@ -45,112 +43,39 @@ public class MainSystem
                 world.player.state = Player.State.WALK;
                 world.player.move();
             }
-            Gdx.app.error("Logic", "" + idObject);
             if (!idInterface.equals("null"))
             {
-                interfaceProcess(getInterfaceByID());
+                interfaceAction();
             }
-            if (idObject != -1)
+            if (!idObject.equals("null"))
             {
-                passageProcess(getPassageByID());
-                thingProcess(getThingByID());
-                interactionProcess(getInteractionByID());
+                objectAction();
             }
             world.camera.positionUpdate(world.player);
         }
 
-        public Passage getPassageByID()
-        {
-            for (Passage passage : world.passages)
-            {
-                if (passage.id == idObject)
-                    return passage;
-            }
-
-            return null;
-        }
-
-        public void passageProcess(Passage passage)
-        {
-            if (passage != null)
-            {
-                if (passage.isCollision(world.player))
-                {
-                    idObject = -1;
-                    passage.openLocation();
-                }
-            }
-        }
-
-        public Thing getThingByID()
-        {
-            for (Thing thing : world.things)
-            {
-                if (thing.id == idObject)
-                    return thing;
-            }
-
-            return null;
-        }
-
-        public void thingProcess(Thing thing)
-        {
-            if (thing != null)
-            {
-                if (thing.isCollision(world.player))
-                {
-                    if (World.cloak.addThing(thing))
-                    {
-                        idObject = -1;
-                        world.things.remove(thing);
-                    }
-                }
-            }
-        }
-
-        public Interface getInterfaceByID()
+        public void interfaceAction()
         {
             for (Interface justInterface : world.interfaces)
             {
                 if (justInterface.id.equals(idInterface))
                 {
-                    return justInterface;
+                    idInterface = "null";
+                    justInterface.use(world);
+                    break;
                 }
             }
-
-            return null;
         }
 
-        public void interfaceProcess(Interface justInterface)
+        public void objectAction()
         {
-            if (justInterface != null)
+            for (JustObject object : world.allObject)
             {
-                idInterface = "null";
-                justInterface.use(world);
-            }
-        }
-
-        public Interaction getInteractionByID()
-        {
-            for (Interaction obg : world.used)
-            {
-                if (obg.id == idObject)
+                if (object.id.equals(idObject) && object.isCollision(world.player))
                 {
-                    return obg;
-                }
-            }
-
-            return null;
-        }
-
-        public void interactionProcess(Interaction obg)
-        {
-            if (obg != null)
-            {
-                if (obg.isCollision(world.player))
-                {
-                    idObject = -1;
-                    obg.check(world.player);
+                    idObject = "null";
+                    object.run(world);
+                    break;
                 }
             }
         }
@@ -196,30 +121,12 @@ public class MainSystem
 
         public void getIDObject(int x, int y)
         {
-            for (Passage pas : world.passages)
+            for (JustObject object : world.allObject)
             {
-                idObject = pas.getIDByClick(x, y);
-                if (idObject != -1)
+                idObject = object.getIDByClick(x, y);
+                if (!idObject.equals("null"))
                     break;
             }
-
-            if (idObject == -1)
-            {
-                for (Thing thing : world.things)
-                {
-                    idObject = thing.getIDByClick(x, y);
-                    if (idObject != -1)
-                        break;
-                }
-            }
-
-            if (idObject == -1)
-                for (Interaction obg : world.used)
-                {
-                    idObject = obg.getIDByClick(x, y);
-                    if (idObject != -1)
-                        break;
-                }
         }
 
         public void getIDInterface(int x, int y)

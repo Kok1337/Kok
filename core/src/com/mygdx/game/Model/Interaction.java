@@ -6,6 +6,10 @@ import com.mygdx.game.View.World;
 
 public abstract class Interaction extends JustObject
 {
+    public Interaction(String id, int x, int y, Texture texture) {
+        super(id, x, y, texture);
+    }
+    /*
     public boolean used = false;
     public Thing thing;
     public Interaction(int x, int y, Texture img, Thing thing)
@@ -22,5 +26,5 @@ public abstract class Interaction extends JustObject
         if (thing == World.cloak.panels[World.cloak.selectPanel].thing)
             doIt();
     }
-
+*/
 }

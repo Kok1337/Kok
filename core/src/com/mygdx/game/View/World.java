@@ -1,7 +1,6 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,10 +12,7 @@ import com.mygdx.game.Interface.Bag;
 import com.mygdx.game.Interface.Interface;
 import com.mygdx.game.Interface.Pause;
 import com.mygdx.game.Inventory.Cloak;
-import com.mygdx.game.Model.Interaction;
 import com.mygdx.game.Model.JustObject;
-import com.mygdx.game.Model.Passage;
-import com.mygdx.game.Model.Thing;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Position;
 import com.mygdx.game.SearchPath.AStar;
@@ -24,8 +20,6 @@ import com.mygdx.game.SearchPath.Node;
 import com.mygdx.game.Start;
 
 import java.util.ArrayList;
-
-import javax.jws.soap.SOAPBinding;
 
 public abstract class World implements Screen
 {
@@ -54,10 +48,8 @@ public abstract class World implements Screen
     public int worldWidth;
     public int worldHeight;
 
-    public ArrayList<Thing> things;
-    public ArrayList<Passage> passages;
-    public ArrayList<Node> closeAllTime;
-    public ArrayList<Interaction> used;
+    public ArrayList<JustObject> allObject;
+
     public ArrayList<Interface> interfaces;
 
 
@@ -71,14 +63,10 @@ public abstract class World implements Screen
         aStar = new AStar(worldWidth, worldHeight);
         camera = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldWidth, worldHeight);
         interfaces = new ArrayList<Interface>();
-        closeAllTime = new ArrayList<Node>();
-        passages = new ArrayList<Passage>();
-        things = new ArrayList<Thing>();
-        used = new ArrayList<Interaction>();
+        allObject = new ArrayList<JustObject>();
         getSettings();
-        aStar.setCloseAllTime(closeAllTime);
+        aStar.setCloseAllTime(allObject);
         system = new MainSystem(this);
-
         pause = new Pause(740, 420, new Texture("buttonPause.png"),"pause", camera);
         getInterface();
         IR = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -151,7 +139,6 @@ public abstract class World implements Screen
     @Override
     public void hide()
     {
-        JustObject.counter = 0;
     }
 
     @Override
@@ -170,17 +157,9 @@ public abstract class World implements Screen
     {
         system.update();
         aStar.render(batch);
-        for (Interaction obg : used)
+        for (JustObject obg : allObject)
         {
             obg.render(batch);
-        }
-        for (Passage passage : passages)
-        {
-            passage.render(batch);
-        }
-        for (Thing thing : things)
-        {
-            thing.render(batch);
         }
         player.render(batch);
         camera.render(batch);

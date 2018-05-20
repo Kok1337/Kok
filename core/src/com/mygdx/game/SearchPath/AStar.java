@@ -3,6 +3,7 @@ package com.mygdx.game.SearchPath;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Model.JustObject;
 
 import java.util.ArrayList;
 
@@ -140,9 +141,26 @@ public class AStar
 
     }
 
-    public void setCloseAllTime(ArrayList<Node> closeAllTime)
+    public void setCloseAllTime(ArrayList<JustObject> allObject)
     {
-        this.closeAllTime = closeAllTime;
+        this.closeAllTime.clear();
+        for (int i = map.length - 1; i >= 0; i--)
+        {
+            for (int j = map[i].length - 1; j >= 0; j--)
+            {
+                for (JustObject object : allObject)
+                {
+                    if (object.type == JustObject.Type.BARRIER)
+                    {
+                        if (object.body.contains((i * Node.nodeSize) + (Node.nodeSize / 2), (j * Node.nodeSize) + (Node.nodeSize / 2)))
+                        {
+                            closeAllTime.add(map[i][j]);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public Node getMinFCost(ArrayList<Node> nodes)

@@ -1,13 +1,7 @@
 package com.mygdx.game.View;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Interface.Pause;
-import com.mygdx.game.Model.Interaction;
-import com.mygdx.game.Model.Passage;
-import com.mygdx.game.Model.Thing;
-import com.mygdx.game.Position;
+import com.mygdx.game.Model.JustObject;
 
 public class First extends World
 {
@@ -20,19 +14,14 @@ public class First extends World
    // @Override
     public void getSettings()
     {
-        for (int i = 5; i < 10; i++)
-        {
-            for (int j = 5; j < 10; j++)
-            {
-                closeAllTime.add(aStar.getNodeFromMap(i,j));
-            }
-        }
-        things.add(new Thing(25, 25, new Texture("matches.png")));
-        things.add(new Thing(700, 400, new Texture("mandragora.png")));
-        things.add(new Thing(500, 500, new Texture("obj.png")));
+        allObject.add(new JustObject(100, 100, new Texture("barrier.png"), "barrier1"));
+        allObject.add(new JustObject(200, 250, new Texture("barrier.png"), "barrier2"));
+        allObject.add(new JustObject("matches",25, 25, new Texture("matches.png")));
+        allObject.add(new JustObject("mandragora",700, 400, new Texture("mandragora.png")));
+        allObject.add(new JustObject("object",500, 500, new Texture("obj.png")));
+        allObject.add(new JustObject("from1to2", 400, 100, new Texture("door.png"), "second"));
 
-        passages.add(new Passage(400, 100, new Texture("door.png"), "second"));
-        used.add(new Interaction(40, 400, new Texture("candelfalse.png"), things.get(0)) {
+        /*used.add(new Interaction(40, 400, new Texture("candelfalse.png"), things.get(0)) {
             @Override
             public void doIt()
             {
@@ -40,6 +29,6 @@ public class First extends World
                 this.used = true;
                 World.cloak.deleteThing();
             }
-        });
+        });*/
     }
 }

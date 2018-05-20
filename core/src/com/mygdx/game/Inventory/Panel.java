@@ -3,7 +3,7 @@ package com.mygdx.game.Inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Model.Thing;
+import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.Position;
 
 public class Panel
@@ -11,7 +11,7 @@ public class Panel
     public Position center;
     public Rectangle body;
     public Texture panel = new Texture("panel.png");
-    public Thing thing;
+    public JustObject thing;
     public int id;
     public Panel(int x, int y, int number)
     {
@@ -20,7 +20,7 @@ public class Panel
         body = new Rectangle(x, y, panel.getWidth(), panel.getHeight());
     }
 
-    public void addThing(Thing thing)
+    public void addThing(JustObject thing)
     {
         this.thing = thing;
     }

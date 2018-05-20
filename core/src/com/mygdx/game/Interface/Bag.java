@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Camera.Camera;
 import com.mygdx.game.Inventory.Panel;
-import com.mygdx.game.Model.Thing;
+import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.Position;
 import com.mygdx.game.View.World;
 
@@ -32,7 +32,7 @@ public class Bag extends Interface
         world.state = World.State.INVENTORY;
     }
 
-    public static void setThing(Thing thing)
+    public static void setThing(JustObject thing)
     {
         panel.thing = thing;
     }
