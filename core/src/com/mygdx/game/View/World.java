@@ -80,6 +80,7 @@ public abstract class World implements Screen
         //изменение позиции персонажа
         //player.setPosition(player.getPosition(nameLocation, lastNameLocation));
         player.setPosition(new Position(0, 0));
+        aStar.setCloseAllTime(allObject);
         player.path = aStar.getPath(player.position.x, player.position.y, player.position.x, player.position.y);
     }
 

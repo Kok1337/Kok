@@ -20,6 +20,7 @@ public class First extends World
         allObject.add(new JustObject("mandragora",700, 400, new Texture("mandragora.png")));
         allObject.add(new JustObject("object",500, 500, new Texture("obj.png")));
         allObject.add(new JustObject("from1to2", 400, 100, new Texture("door.png"), "second"));
+        allObject.add(new JustObject("candlestick", 50, 400, new Texture("candelfalse.png"), "matches", "bern"));
 
         /*used.add(new Interaction(40, 400, new Texture("candelfalse.png"), things.get(0)) {
             @Override

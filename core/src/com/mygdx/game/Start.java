@@ -26,6 +26,7 @@ public class Start extends Game {
 		listScreens.put("first", new First());
 		listScreens.put("second", new Second());
 
+		Methods methods = new Methods(this);
 		World.lastNameLocation = "start";
 		World.nameLocation = "first";
 		setScreen(listScreens.get("first"));

@@ -3,6 +3,7 @@ package com.mygdx.game.Model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Methods;
 import com.mygdx.game.Player.Player;
 import com.mygdx.game.Position;
 import com.mygdx.game.View.World;
@@ -83,6 +84,11 @@ public class JustObject
                 break;
 
             case INTERACTION:
+                if (World.cloak.selectPanel >= 0)
+                {
+                    if (checkID.equals(World.cloak.panels[World.cloak.selectPanel].thing.id))
+                        Methods.MethodManader(this);
+                }
                 break;
 
             case BARRIER:
