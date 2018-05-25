@@ -1,6 +1,7 @@
 package com.mygdx.game.Control;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.input.GestureDetector;
 import com.mygdx.game.Interface.Interface;
 import com.mygdx.game.Model.JustObject;
 import com.mygdx.game.Player.Player;
@@ -25,7 +26,7 @@ public class MainSystem
     {
         if (Gdx.input.justTouched())
         {
-            controller.render(Gdx.input.getX(), world.camera.cameraHeight - Gdx.input.getY());
+            controller.render(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
         }
         logic.render();
     }
@@ -85,8 +86,8 @@ public class MainSystem
     {
         public void render(int x, int y)
         {
-            int targetX = (((int) (world.camera.mainCamera.position.x) - world.camera.cameraWidth / 2) + x);
-            int targetY = (((int) (world.camera.mainCamera.position.y) - world.camera.cameraHeight / 2) + y);
+            int targetX = (int)(((world.camera.mainCamera.position.x) - world.camera.mainCamera.viewportWidth  / 2) + x/world.camera.coefficientX);
+            int targetY = (int)(((world.camera.mainCamera.position.y) - world.camera.mainCamera.viewportHeight / 2) + y/world.camera.coefficientY);
             Gdx.app.error("koord", "" + targetX +" "+ targetY);
             getIDInterface(x, y);
 
@@ -100,6 +101,11 @@ public class MainSystem
                     if (!world.aStar.closeAllTime.contains(st))
                     {
                         world.player.setPath(world.aStar.getPath(world.player.position.x, world.player.position.y, targetX, targetY));
+                        if ((targetX > world.player.position.x && world.player.currentFrame.isFlipX())||(targetX < world.player.position.x && !world.player.currentFrame.isFlipX()))
+                        {
+                            Gdx.app.log("render", "blbllbl");
+                            world.player.isFlip = !world.player.isFlip;
+                        }
                     }
 
                     getIDObject(targetX, targetY);

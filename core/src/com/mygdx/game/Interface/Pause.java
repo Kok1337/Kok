@@ -19,7 +19,7 @@ public class Pause extends Interface
     @Override
     public void render(SpriteBatch batch)
     {
-        batch.draw(icon, (int)camera.mainCamera.position.x - camera.cameraWidth / 2 + position.x, (int)camera.mainCamera.position.y - camera.cameraHeight / 2 + position.y);
+        batch.draw(icon, (int)camera.mainCamera.position.x - camera.mainCamera.viewportWidth / 2 + position.x, (int)camera.mainCamera.position.y - camera.mainCamera.viewportHeight / 2 + position.y);
     }
 
     @Override

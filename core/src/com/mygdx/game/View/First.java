@@ -8,7 +8,7 @@ public class First extends World
 
     public First()
     {
-        super(1000, 1000);
+        super(2000, 5000);
     }
 
    // @Override
@@ -17,7 +17,7 @@ public class First extends World
         allObject.add(new JustObject(100, 100, new Texture("barrier.png"), "barrier1"));
         allObject.add(new JustObject(200, 250, new Texture("barrier.png"), "barrier2"));
         allObject.add(new JustObject("matches",25, 25, new Texture("matches.png")));
-        allObject.add(new JustObject("mandragora",700, 400, new Texture("mandragora.png")));
+        allObject.add(new JustObject("mandragora",1000, 400, new Texture("mandragora.png")));
         allObject.add(new JustObject("object",500, 500, new Texture("obj.png")));
         allObject.add(new JustObject("from1to2", 400, 100, new Texture("door.png"), "second"));
         allObject.add(new JustObject("candlestick", 50, 400, new Texture("candelfalse.png"), "matches", "bern"));

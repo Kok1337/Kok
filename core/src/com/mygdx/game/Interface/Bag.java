@@ -21,9 +21,9 @@ public class Bag extends Interface
     @Override
     public void render(SpriteBatch batch)
     {
-        batch.draw(panel.panel, (int)camera.mainCamera.position.x - camera.cameraWidth / 2 + position.x, (int)camera.mainCamera.position.y - camera.cameraHeight / 2 + position.y);
+        batch.draw(panel.panel, (int)camera.mainCamera.position.x - camera.mainCamera.viewportWidth / 2 + position.x, (int)camera.mainCamera.position.y - camera.mainCamera.viewportHeight / 2 + position.y);
         if (panel.thing != null)
-            panel.thing.renderPanel(batch, new Position((int)camera.mainCamera.position.x - camera.cameraWidth / 2 + panel.center.x, (int)camera.mainCamera.position.y - camera.cameraHeight / 2 + panel.center.y));
+            panel.thing.renderPanel(batch, new Position((int)camera.mainCamera.position.x - (int)camera.mainCamera.viewportWidth / 2 + panel.center.x, (int)camera.mainCamera.position.y - (int)camera.mainCamera.viewportHeight / 2 + panel.center.y));
     }
 
     @Override

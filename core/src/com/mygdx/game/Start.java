@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.View.First;
+import com.mygdx.game.View.Menu;
 import com.mygdx.game.View.Second;
 import com.mygdx.game.View.World;
 
@@ -25,10 +26,10 @@ public class Start extends Game {
 		listScreens = new HashMap<String, World>();
 		listScreens.put("first", new First());
 		listScreens.put("second", new Second());
-
+		Menu menu = new Menu(this);
 		Methods methods = new Methods(this);
 		World.lastNameLocation = "start";
 		World.nameLocation = "first";
-		setScreen(listScreens.get("first"));
+		setScreen(menu);
 	}
 }

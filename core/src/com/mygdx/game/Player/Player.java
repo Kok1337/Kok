@@ -31,7 +31,7 @@ public class Player
     Texture standSheet;
     TextureRegion[] walkFrames;
     TextureRegion[] standFrames;
-    TextureRegion currentFrame;
+    public TextureRegion currentFrame;
     public State state = State.STAND;
 
     float stateTime;
@@ -51,7 +51,7 @@ public class Player
         body = new Rectangle(x - 20, y, player.getWidth(), 30);
         path = new ArrayList<Node>();
         countArr = 0;
-        speed = 2;
+        speed = 4;
         isFlip = false;
         /**/
 

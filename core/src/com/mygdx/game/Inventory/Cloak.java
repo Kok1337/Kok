@@ -60,6 +60,7 @@ public class Cloak
     {
         panels[selectPanel].deleteThing();
         Bag.setThing(null);
+        selectPanel = -1;
     }
 
     public void selectPanel(int x, int y)

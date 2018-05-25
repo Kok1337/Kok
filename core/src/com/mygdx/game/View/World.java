@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.input.GestureDetector;
 import com.mygdx.game.Camera.Camera;
 import com.mygdx.game.Control.MainSystem;
 import com.mygdx.game.Interface.Bag;
@@ -47,9 +48,8 @@ public abstract class World implements Screen
 
     public int worldWidth;
     public int worldHeight;
-
+    public Camera cam;
     public ArrayList<JustObject> allObject;
-
     public ArrayList<Interface> interfaces;
 
 
@@ -57,20 +57,23 @@ public abstract class World implements Screen
     public World(int worldWidth, int worldHeight)
     {
         //потом вместо размера мира надо будет кидать текстуру и вычислять через нее размеры
+
         this.worldWidth = worldWidth;
         this.worldHeight =worldHeight;
         player = new Player(0, 0);
         aStar = new AStar(worldWidth, worldHeight);
         camera = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldWidth, worldHeight);
+        cam = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldWidth, worldHeight);
         interfaces = new ArrayList<Interface>();
         allObject = new ArrayList<JustObject>();
         getSettings();
         aStar.setCloseAllTime(allObject);
         system = new MainSystem(this);
-        pause = new Pause(740, 420, new Texture("buttonPause.png"),"pause", camera);
+        pause = new Pause(740, 420, new Texture("buttonPause.png"),"pause", cam);
         getInterface();
         IR = new Camera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        IR.mainCamera.position.set(camera.cameraWidth / 2, camera.cameraHeight /2, 0);
+        IR.mainCamera.position.set(camera.normalCameraWidth / 2, camera.normalCameraHeight /2, 0);
+
     }
 
     @Override
@@ -79,6 +82,7 @@ public abstract class World implements Screen
 
         //изменение позиции персонажа
         //player.setPosition(player.getPosition(nameLocation, lastNameLocation));
+        Gdx.input.setInputProcessor(new GestureDetector(camera));
         player.setPosition(new Position(0, 0));
         aStar.setCloseAllTime(allObject);
         player.path = aStar.getPath(player.position.x, player.position.y, player.position.x, player.position.y);
@@ -97,7 +101,6 @@ public abstract class World implements Screen
         {
             case RUN:
                 runRender();
-                Gdx.app.error("render", delta + "");
                 break;
             case INVENTORY:
                 IR.render(batch);
@@ -110,7 +113,7 @@ public abstract class World implements Screen
                 break;
             case PAUSE:
                 IR.render(batch);
-                batch.draw(pause.pause, IR.cameraWidth / 2 - pause.pause.getWidth() / 2, IR.cameraHeight / 2 - pause.pause.getHeight() / 2);
+                batch.draw(pause.pause, IR.normalCameraWidth / 2 - pause.pause.getWidth() / 2, IR.normalCameraHeight / 2 - pause.pause.getHeight() / 2);
                 if (Gdx.input.justTouched())
                     this.state = State.RUN;
                 break;
@@ -151,7 +154,7 @@ public abstract class World implements Screen
     void getInterface()
     {
         interfaces.add(pause);
-        interfaces.add(new Bag(703, 0, new Texture("panelSuper.png"),"bag", camera));
+        interfaces.add(new Bag(703, 0, new Texture("panelSuper.png"),"bag", cam));
     }
 
     void runRender()
@@ -163,11 +166,13 @@ public abstract class World implements Screen
             obg.render(batch);
         }
         player.render(batch);
-        camera.render(batch);
+        cam.mainCamera.position.set(camera.mainCamera.position);
+        cam.render(batch);
         for (Interface part : interfaces)
         {
             part.render(batch);
         }
+        camera.render(batch);
     }
 
     public abstract void getSettings();
